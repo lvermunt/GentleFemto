@@ -11,3 +11,7 @@
 .project
 *~
 Makefile
+*.cmake
+*CMakeFiles/
+CMakeCache.txt
+install/

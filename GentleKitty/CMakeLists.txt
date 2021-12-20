@@ -8,13 +8,15 @@ endif()
 project(GentleKitty)
 # SET PATHS #
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  SET(GSL_INCLUDE "/usr/local/Cellar/gsl/2.6/include")#where are all GSL related .h files
-  SET(GSL_LIB "/usr/local/Cellar/gsl/2.6/lib")#where are the GSL .a and .so files
-else()
-  SET(GSL_INCLUDE "/usr/include/gsl")#where are all GSL related .h files
-  SET(GSL_LIB "/usr/lib/x86_64-linux-gnu/")#where are the GSL .a and .so files
-endif()
+#if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+#  SET(GSL_INCLUDE "/usr/local/Cellar/gsl/2.6/include")#where are all GSL related .h files
+#  SET(GSL_LIB "/usr/local/Cellar/gsl/2.6/lib")#where are the GSL .a and .so files
+#else()
+#  SET(GSL_INCLUDE "/usr/include/gsl")#where are all GSL related .h files
+#  SET(GSL_LIB "/usr/lib/x86_64-linux-gnu/")#where are the GSL .a and .so files
+#endif()
+SET(GSL_INCLUDE "/cvmfs/sft.cern.ch/lcg/releases/GSL/2.6-ecdfc/x86_64-ubuntu1804-gcc7-opt/include/")#where are all GSL related .h files
+SET(GSL_LIB "/cvmfs/sft.cern.ch/lcg/releases/GSL/2.6-ecdfc/x86_64-ubuntu1804-gcc7-opt/lib")#where are the GSL .a and .so files
 SET(CATS_INCLUDE "$ENV{CATS}/include")#where are all CATS related .h files
 SET(CATS_LIB "$ENV{CATS}/lib")#where are the CATS related .a files
 SET(DREAM_PATH "${CMAKE_SOURCE_DIR}/DreamFunction")#where are all CATS related .h files
