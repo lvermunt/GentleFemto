@@ -19,12 +19,24 @@ int main(int argc, char* argv[]) {
   evtQA->PlotEventProperties(200);
   evtQA->PlotPileUpRejection();
   evtQA->SetTightMargin();
-  evtQA->PlotStatsTrackCleaner( { "p-#Lambda", "#bar{p}-#bar{#Lambda}", "p-#Xi",
-                                   "#bar{p}-#bar{#Xi}" },
-                               { "#Lambda-#Lambda",
-                                   "#bar{#Lambda}-#bar{#Lambda}", "#Xi-#Xi",
-                                   "#bar{#Xi}-#bar{#Xi}" },
-                               6);
+
+  TString prefixstr = (TString)prefix;
+  if(prefixstr.Contains("kaon")) {
+    evtQA->PlotStatsTrackCleaner( { "K^{+}-D^{*+}", "K^{+}-D^{*-}", "K^{-}-D^{*+}",
+                                    "K^{-}-D^{*-}" },
+                                  { },
+                                  6);
+  } else if(prefixstr.Contains("pion")) {
+    evtQA->PlotStatsTrackCleaner( { "#pi^{+}-D^{*+}", "#pi^{+}-D^{*-}", "#pi^{-}-D^{*+}",
+                                    "#pi^{-}-D^{*-}" },
+                                  { },
+                                  6);
+  } else {
+    evtQA->PlotStatsTrackCleaner( { "p-D^{*+}", "p-D^{*-}", "#bar{p}-D^{*+}",
+                                    "#bar{p}-D^{*-}" },
+                                  { },
+                                  6);
+  }
 
   TrackQA* trkQA = new TrackQA();
   trkQA->SetTrackCuts(reader->GetTrackCuts());
@@ -32,24 +44,29 @@ int main(int argc, char* argv[]) {
   trkQA->PlotKinematic();
   trkQA->PlotPID();
 
-  DecayQA* v0QA = new DecayQA("#Lambda","p#pi");
-  v0QA->SetCanvasDivisions(4, 2);
-  v0QA->SetDecayCuts(reader->Getv0Cuts());
-  v0QA->SetIMHistoScale(1.75,0.8,0.35);
-  v0QA->SetAntiDecayCuts(reader->GetAntiv0Cuts());
-  v0QA->SetRangesFitting(1.1075, 1.1235, 1.09, 1.15);
-  v0QA->InvariantMassLambda(1.112, 1.120, false, 0.48, 0.515);
-  v0QA->PlotQATopologyLambda();
+  //Is there something to be added for Dstar? Kept the examples for V0 and cascades below
+  //DecayQA* DstarQA = new DecayQA("D^{*+}","D^{0}#pi^{+}");
+  //DstarQA->SetCanvasDivisions(4, 3);
 
-  DecayQA* cascQA = new DecayQA("#Xi^{-}","#pi#Lambda");
-  cascQA->SetCanvasDivisions(4, 3);
-  cascQA->SetInvMasspTStartBin(2);
-  cascQA->SetIMHistoScale(2.5,0.8,0.45);
-  cascQA->SetDecayCuts(reader->GetCascadeCuts());
-  cascQA->SetAntiDecayCuts(reader->GetAntiCascadeCuts());
-  cascQA->SetRangesFitting(1.31, 1.33, 1.285, 1.365);
-  cascQA->InvariantMassXi(1.317, 1.327);
-  cascQA->IvariantMassXiLambda();
+  //DecayQA* v0QA = new DecayQA("#Lambda","p#pi");
+  //v0QA->SetCanvasDivisions(4, 2);
+  //v0QA->SetDecayCuts(reader->Getv0Cuts());
+  //v0QA->SetIMHistoScale(1.75,0.8,0.35);
+  //v0QA->SetAntiDecayCuts(reader->GetAntiv0Cuts());
+  //v0QA->SetRangesFitting(1.1075, 1.1235, 1.09, 1.15);
+  //v0QA->InvariantMassLambda(1.112, 1.120, false, 0.48, 0.515);
+  //v0QA->PlotQATopologyLambda();
+
+  //DecayQA* cascQA = new DecayQA("#Xi^{-}","#pi#Lambda");
+  //cascQA->SetCanvasDivisions(4, 3);
+  //cascQA->SetInvMasspTStartBin(2);
+  //cascQA->SetIMHistoScale(2.5,0.8,0.45);
+  //cascQA->SetDecayCuts(reader->GetCascadeCuts());
+  //cascQA->SetAntiDecayCuts(reader->GetAntiCascadeCuts());
+  //cascQA->SetRangesFitting(1.31, 1.33, 1.285, 1.365);
+  //cascQA->InvariantMassXi(1.317, 1.327);
+  //cascQA->IvariantMassXiLambda();
+
   return 0;
 }
 

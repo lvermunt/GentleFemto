@@ -129,6 +129,7 @@ void EventQA::PlotStatsTrackCleaner(std::vector<const char*> TrackDecay,
       std::cerr << "PlotStatsTracksCleaner: "
                 << Form("DaugthersSharedDaughters_%u", iDecDec)
                 << " missing \n";
+      continue;
     }
     TString nameAxis = Form("%s pairs with shared tracks/event", it);
     DecayDecay->GetXaxis()->SetTitle(nameAxis.Data());
